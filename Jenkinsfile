@@ -9,6 +9,7 @@ pipeline {
         // Secure tokens that we will put into Jenkins later
         DOCKER_CREDS = credentials('dockerhub-credentials')
         VERCEL_TOKEN = credentials('vercel-token')
+        NVD_API_KEY = credentials('nvd-api-key')
     }
     
     stages {
@@ -30,7 +31,7 @@ pipeline {
             steps {
                 // Scans your packages for known vulnerabilities.
                 // Note: We will install the "OWASP Dependency-Check" plugin in Jenkins in Phase 2
-                dependencyCheck additionalArguments: '--scan .', odcInstallation: 'owasp-tool'
+                dependencyCheck additionalArguments: "--scan . --nvdApiKey ${NVD_API_KEY}", odcInstallation: 'owasp-tool'
             }
         }
         
