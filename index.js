@@ -20,7 +20,7 @@ import MESSAGE from './models/message.js';
 import MARKS from './models/marks.js';
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -47,7 +47,8 @@ app.use((req, res, next) => {
 app.use(authRoutes);
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/msrit');
+    const dbUrl = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/msrit';
+    await mongoose.connect(dbUrl);
 }
 main()
     .then(() => console.log("Connected to DB"))
@@ -631,3 +632,5 @@ app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
     console.log(`http://localhost:${PORT}`);
 });
+
+module.exports = app;
