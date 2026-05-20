@@ -1,0 +1,87 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<h2>Faculty Dashboard</h2>
+<p>Welcome, <%= response.faculty.name %> (<%= response.faculty.email %>)</p>
+<p>Dept: <%= response.department.name %></p>
+<div class="info-card">
+    <h3>Your Classrooms</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Section</th>
+                <th scope="col">Course</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(x of response.classrooms){ %>
+                <% if(x.status == "accepted"){ %>
+                <tr>
+                    <td><%= x.section.name %></td>
+                    <td><%= x.course.name %></td>
+                    <td><a href="/marks/<%= x.id %>">Update Marks</a></td>
+                </tr>
+                <% } %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<button class="btn mt-3 cnc-btn" onclick="showCreateClass()">Create Classroom</button>
+
+<div class="create-new-classroom">
+    <h3 class="mt-1">Create New Classroom</h3>
+    <form method="POST" action="/classroom" class="needs-validation" novalidate onsubmit="return submitCNC()">
+        <div class="create-class-flex">
+        <div>
+            <label class="form-label">Section:</label>
+            <select class="form-control" name="section" required>
+                <option value="" disabled selected>Select Section</option>
+                <% for(x of response.sections){ %>
+                    <option value="<%= x.id %>"><%= x.name %></option>
+                <% } %>
+            </select>
+        </div>
+        <div>
+            <label class="form-label">Course:</label>
+            <select class="form-control" name="course" required>
+                <option value="" disabled selected>Select Course</option>
+                <% for(x of response.courses){ %>
+                    <option value="<%= x.id %>"><%= x.name %></option>
+                <% } %>
+            </select>
+        </div>
+        </div>
+        <input type="hidden" name="faculty" value="<%= response.faculty.id %>">
+        <button class="btn mt-3">Save Classroom</button>
+    </form>
+</div>
+
+<hr>
+
+<div class="panel">
+    <h3>Send Notice</h3>
+    <form method="POST" action="/notice/new" class="needs-validation" novalidate>
+    <div>
+        <label class="form-label">Classroom:</label>
+        <select class="form-control" name="classId" required>
+            <option value="" disabled selected>Select</option>
+            <% for(x of response.classrooms){ %>
+                <option value="<%= x.id %>"><%= x.section.name %> - <%= x.course.name %></option>
+            <% } %>
+        </select>
+    </div>
+    <div class="mt-3">
+        <label class="form-label">Message Type:</label>
+        <select class="form-control" name="msgType" required>
+            <option value="" disabled selected>Select</option>
+            <option value="ann">Announcement</option>
+            <option value="ded">Deadline</option>
+        </select>
+    </div>
+    <div class="mt-3">
+        <textarea class="form-control" placeholder="Enter your message..." name="message" required></textarea>
+    </div>
+    <button class="btn mt-3">Send Notice</button>
+    </form>
+</div>

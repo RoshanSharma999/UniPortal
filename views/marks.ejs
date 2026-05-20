@@ -1,0 +1,78 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<h2>Marks Entry</h2>
+<form action="/faculty">
+<button class="btn">Back to Dashboard</button>
+</form>
+<p>Course: <%= data.course.code %> - <%= data.course.name %> (<%= data.section.name %>)</p>
+
+<div class="panel">
+    <h3>Enter Marks for Students</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>USN</th>
+                    <th>Student Name</th>
+                    <th>CIE-1 (30)</th>
+                    <th>CIE-2 (30)</th>
+                    <th>Comp-1 (10)</th>
+                    <th>Comp-2 (10)</th>
+                    <th>SEE (100)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="marksTableBody">
+                <% for(x of data.students){ %>
+                <tr data-student-id="<%= x.id %>">
+                    <form method="POST" action="/marks/update">
+                    <td><%= x.usn %></td>
+                    <td><%= x.name %></td>
+                    <td><input type="number" min="0" max="30" name="cie1" class="cie1-input" value="<%=  x.marks.cie1%>"></td>
+                    <td><input type="number" min="0" max="30" name="cie2" class="cie2-input" value="<%=  x.marks.cie2%>"></td>
+                    <td><input type="number" min="0" max="10" name="comp1" class="comp1-input" value="<%=  x.marks.comp1%>"></td>
+                    <td><input type="number" min="0" max="10" name="comp2" class="comp2-input" value="<%=  x.marks.comp2%>"></td>
+                    <td><input type="number" min="0" max="100" name="see" class="see-input" value="<%=  x.marks.see%>"></td>
+                    <input type="hidden" name="studentId" value="<%= x.id %>">
+                    <input type="hidden" name="classroomId" value="<%= data.classroom.id %>">
+                    <td><button>Update</button></td>
+                </form>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    
+    <div>
+        <form method="POST" action="/marks/update-all" id="saveAllForm">
+            <input type="hidden" name="classroomId" value="<%= data.classroom.id %>">
+            <input type="hidden" name="students" id="studentsData">
+            <button type="button" class="btn" onclick="saveAllChanges()">Save All Changes</button>
+        </form>    
+    </div>
+</div>
+
+<script>
+    function saveAllChanges() {
+        const rows = document.querySelectorAll('#marksTableBody tr');
+        const students = [];
+        
+        rows.forEach(row => {
+            const studentId = row.getAttribute('data-student-id');
+            const cie1 = row.querySelector('.cie1-input').value;
+            const cie2 = row.querySelector('.cie2-input').value;
+            const comp1 = row.querySelector('.comp1-input').value;
+            const comp2 = row.querySelector('.comp2-input').value;
+            const see = row.querySelector('.see-input').value;
+            
+            students.push({
+                studentId: studentId,
+                cie1: parseFloat(cie1) || 0,
+                cie2: parseFloat(cie2) || 0,
+                comp1: parseFloat(comp1) || 0,
+                comp2: parseFloat(comp2) || 0,
+                see: parseFloat(see) || 0
+            });
+        });
+        document.getElementById('studentsData').value = JSON.stringify(students);
+        document.getElementById('saveAllForm').submit();
+    }
+</script>

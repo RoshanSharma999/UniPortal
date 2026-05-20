@@ -1,0 +1,138 @@
+body{
+    background-color: #e9eff5 !important;
+}
+
+/* navbar */
+.navbar{
+    background-color: #004d99;
+    z-index: 10;
+}
+.navbar-brand{
+    color: white !important;
+    font-size: 35px !important;
+    margin-left: 20px;
+}
+.logout{
+    color: white !important;
+    font-size: 22px !important;
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.logout a:hover{
+    cursor: pointer;
+}
+h2{
+    color: #004d99 !important;
+    font-size: 42px !important;
+    margin-top: 30px !important;
+}
+h3{
+    color: #004d99 !important;
+    font-size: 32px !important;
+    margin-top: 30px !important;
+}
+p{
+    font-size: 30px !important;
+}
+section{
+    margin-top: 30px;
+}
+button{
+    margin: 0 20px 20px 0 !important;
+    font-size: 20px !important;
+    color: white !important;
+    background-color: #004d99 !important;
+}
+label{
+    font-size: 20px;
+}
+input, select, textarea{
+    font-size: 20px !important;
+    width: 50% !important;
+}
+hr{
+    color: #004d99 !important;
+    height: 5px;
+}
+a{
+    text-decoration: none !important;
+}
+/* multiple login functionality */
+.hidden {
+    display: none;
+}
+
+/* hod - dashboard */
+th, td{
+    font-size: 20px;
+    background-color: rgb(240, 245, 255) !important;
+}
+th{
+    background-color: #004d99 !important;
+    color: white !important;
+    border-left: 3px solid rgb(172, 181, 204) !important;
+}
+.table{
+    border-left: 3px solid orange !important;
+    box-shadow: 1px 1px 1px 1px rgb(191, 191, 191);
+}
+#approval{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.aprvl-det{
+    font-size: 25px;
+}
+.act{
+    color: white !important;
+    background-color: rgb(67, 208, 67) !important;
+}
+.rjt{
+    color: white !important;
+    background-color: rgb(211, 38, 38) !important;
+}
+
+/*faculty - dashboard*/
+.create-new-classroom{
+    display: none;
+}
+.create-class-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.create-class-flex div{
+    width: 50% !important;
+}
+
+/* notice page */
+#notice-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+#inner-flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#msg-date{
+    font-size: 26px;
+}
+#msg-icon{
+    font-size: 35px;
+    margin-right: 30px;
+}
+#msg{
+    font-size: 24px;
+}
+.fa-triangle-exclamation{
+    color: rgb(255, 66, 66) !important;
+}
+.fa-bullhorn{
+    color: rgb(0, 203, 7) !important;
+}

@@ -1,0 +1,63 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<h2>Welcome to the University Portal</h2>
+<p>Please select your role to log in:</p>
+<div class="login-options">
+    <button class="btn" onclick="showLogin('hod')">HOD</button>
+    <button class="btn" onclick="showLogin('faculty')">Faculty</button>
+    <button class="btn" onclick="showLogin('student')">Student</button>
+</div>
+
+<!-- LOGIN FORMS -->
+<!-- HOD Login -->
+<div id="hod-login" class="login-box hidden">
+    <h3>HOD Login</h3>
+    <form action="/login/hod" method="POST" class="needs-validation" novalidate>
+        <div>
+            <label class="form-label">Department:</label>
+            <select class="form-control" name="dept" required>
+                <option value="" disabled selected>Select Department</option>
+                <% for(let department of departments) { %>
+                    <option value="<%= department._id %>"><%= department.name %> (<%= department.code %>)</option>
+                <% } %>
+            </select>
+        </div>
+        <div class="mt-3">
+            <label class="form-label" for="hod-password">Password:</label>
+            <input class="form-control" type="password" name="password" required> <br>
+            <button class="btn" type="submit">Login</button>
+        </div>
+    </form>
+</div>
+
+<!-- Faculty Login -->
+<div id="faculty-login" class="login-box hidden">
+    <h3>Faculty Login</h3>
+    <form action="/login/faculty" method="POST" class="needs-validation" novalidate>
+        <div>
+            <label class="form-label">Email:</label>
+            <input class="form-control" type="email" name="email" required> <br>
+        </div>
+        <div>
+            <label class="form-label">Password:</label>
+            <input class="form-control" type="password" name="password" required> <br>
+        </div>
+        <button class="btn" type="submit">Login</button>
+    </form>
+</div>
+
+<!-- Student Login -->
+<div id="student-login" class="login-box hidden">
+    <h3>Student Login</h3>
+    <form action="/login/student" method="POST" class="needs-validation" novalidate>
+        <div>
+            <label class="form-label">USN</label>
+            <input class="form-control" type="text" name="usn" required> <br>
+        </div>
+        <div>
+            <label class="form-label">Date of Birth:</label>
+            <input class="form-control" type="date" name="dob" required> <br>
+        </div>
+        <button class="btn" type="submit">Login</button>
+    </form>
+</div>

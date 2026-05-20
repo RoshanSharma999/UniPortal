@@ -1,0 +1,66 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<h2>Dashboard (HOD, <%= response.department.name %>)</h2>
+<hr>
+<p>Welcome, <%= response.hod.name %> ( <%= response.hod.email %> )</p>
+
+<div>
+    <% if(response.approvals.length != 0){ %>
+    <h3>Approvals for Classrooms</h3>
+    <% } %>
+    <div id="approval">
+        <% for(x of response.approvals){ %>
+            <% if(x.status === "pending"){ %>
+                <div class="aprvl-det"><b><%= x.course.name %></b> for Section <b><%= x.section.name %></b> by <b><%= x.faculty.name %></b></div>
+                <div>
+                    <form action="/classroom/<%= x.id %>/status" method="POST">
+                    <button type="submit" name="status" value="accepted" class="btn act">Accept</button>
+                    <button type="submit" name="status" value="rejected" class="btn rjt">Reject</button>
+                    </form>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+</div>
+
+<div>
+    <h3>Courses Offered</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Course Code</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Credits</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(x of response.courses){ %>
+            <tr>
+                <td><%= x.code %></td>
+                <td><%= x.name %></td>
+                <td><%= x.credits %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h3>Faculty List</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Faculty Name</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(x of response.faculty){ %>
+            <tr>
+                <td><%= x.name %></td>
+                <td><%= x.email %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

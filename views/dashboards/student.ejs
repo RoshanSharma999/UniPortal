@@ -1,0 +1,34 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<h2>Student Dashboard (USN: <%= data.student.usn %>)</h2>
+<p>Welcome, <%= data.student.name %> ( Sec: <%= data.section.name %> (Sem - <%= data.section.semester %>), Dept: <%= data.department.code %> )</p>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Course</th>
+                <th scope="col">CIE-1</th>
+                <th scope="col">CIE-2</th>
+                <th scope="col">Comp-1</th>
+                <th scope="col">Comp-2</th>
+                <th scope="col">SEE</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(x of data.classrooms){ %>
+                <tr>
+                    <td><%= x.course.name %> (Credits - <%= x.course.credits %> )
+                    <br><%= x.faculty.name %></td>
+                    <td><%= x.marks.cie1 %></td>
+                    <td><%= x.marks.cie2 %></td>
+                    <td><%= x.marks.comp1 %></td>
+                    <td><%= x.marks.comp2 %></td>
+                    <td><%= x.marks.see %></td>
+                    <td><%= x.marks.total %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

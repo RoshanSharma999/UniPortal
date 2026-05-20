@@ -1,0 +1,38 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<h2>Notices</h2>
+<form action="/<%= userRole %>">
+    <button class="btn">Back to Dashboard</button>
+</form>
+
+<div id="notice-container">
+    <% if (messages.length === 0) { %>
+        <p>No notices available</p>
+    <% } else { %>
+        <% for(let msg of messages) { %>
+            <div>
+                <div id="msg-date">
+                    <strong><%= msg.classroom.course.code %> - <%= msg.classroom.course.name %></strong>
+                    (Section: <%= msg.classroom.section.name %>)
+                </div>
+                <div id="inner-flex">
+                    <div id="msg-icon">
+                        <% if (msg.msgType === 'ann' || msg.msgType === 'alert') { %>
+                            <i class="fa-solid fa-triangle-exclamation" style="color: red;"></i>
+                        <% } else if (msg.msgType === 'not') { %>
+                            <i class="fa-solid fa-bullhorn" style="color: blue;"></i>
+                        <% } else if (msg.msgType === 'info') { %>
+                            <i class="fa-solid fa-circle-info" style="color: green;"></i>
+                        <% } else { %>
+                            <i class="fa-solid fa-message"></i>
+                        <% } %>
+                    </div>
+                    <div id="msg">
+                        <%= msg.message %>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        <% } %>
+    <% } %>
+</div>
