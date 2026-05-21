@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 
 app.use(session({
-    secret: 'msrit-secret',
+    secret: process.env.SESSION_SECRET || 'msrit-secret',
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24 hours
