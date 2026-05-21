@@ -1,1 +1,14 @@
+# Dependency directories
 node_modules/
+
+# Environment variables (Never push .env to GitHub!)
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
